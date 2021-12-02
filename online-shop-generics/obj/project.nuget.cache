@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "m6UlHxDyV7F013/Qj5xeQmQaWVQTgNaArjBXQ1Cy+rJB8vh2beO+uQoP9pX2zBSBKqgpqePgNJOcuLmn2afpKQ==",
+  "success": true,
+  "projectFilePath": "D:\\1_PROGRAMARE\\C#\\Abstractizare\\online-shop-generics\\online-shop-generics\\online-shop-generics.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Hoadrea Razvan\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Hoadrea Razvan\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
