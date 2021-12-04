@@ -4,11 +4,10 @@ using System.Text;
 
 namespace online_shop_generics
 {
-    public class Customer
+    public class Customer : IComparable<Customer>
     {
         private string email, password, full_name;
         private int id;
-
 
         public Customer(string[] atributes)
         {
@@ -29,12 +28,17 @@ namespace online_shop_generics
             afis += "ID: " + this.id + "\n\n";
             return afis;
         }
-
-
         public override bool Equals(object obj)
         {
             Customer customer = obj as Customer;
-            return true;
+            return customer.id.Equals(this.id);
+        }
+        public int CompareTo(Customer other)
+        {
+            if (this.password.Length > other.password.Length)
+                return 1;
+            else
+                return 0;
         }
 
 

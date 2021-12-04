@@ -4,7 +4,7 @@ using System.Text;
 
 namespace online_shop_generics
 {
-    public class Phone :Product
+    public class Phone :Product , IComparable<Phone>
     {
         private string phoneName, phoneColor;
         private int screenSize, storage, batteryCapacity;
@@ -31,12 +31,19 @@ namespace online_shop_generics
             afis += "Capacitate Baterie: " + this.batteryCapacity + "\n\n\n";
             return afis;
         }
-
-
         public override bool Equals(object obj)
         {
             Phone phone = obj as Phone;
-            return true;
+            return phone.phoneName.Equals(this.phoneName);
+        }
+        public int CompareTo(Phone other)
+        {
+            if (this.storage > other.storage)
+                return -1;
+            else
+                if (this.storage == other.storage)
+                return 0;
+            return 1;
         }
 
 

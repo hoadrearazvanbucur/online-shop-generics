@@ -4,12 +4,11 @@ using System.Text;
 
 namespace online_shop_generics
 {
-    public class Product
+    public class Product :IComparable<Product>
     {
         private string categorie, name, description, date, image;
         private int id, stock;
         private double price;
-
 
         public Product(string[] atributes)
         {
@@ -22,7 +21,6 @@ namespace online_shop_generics
             this.stock = int.Parse(atributes[6]);
             this.price = double.Parse(atributes[7]);
         }
-
 
         public string afisare()
         {
@@ -38,14 +36,20 @@ namespace online_shop_generics
             return afis;
         }
         public override string ToString() => this.categorie + "," + this.name + "," + this.description + "," + this.date + "," + this.image + "," + this.id + "," + this.stock + "," + this.price;
-
-
         public override bool Equals(object obj)
         {
             Product product = obj as Product;
-            return true;
+            return product.id.Equals(this.id);
         }
-
+        public int CompareTo(Product other)
+        {
+            if (this.price > other.price)
+                return -1;
+            else
+                if (this.price == other.price)
+                return 0;
+            return 1;
+        }
 
         public string Categorie
         {

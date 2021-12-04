@@ -1,34 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
+using generics_collection;
 
 namespace online_shop_generics.Controller
 {
     public class ControlProduct
     {
-        private List<Product> products;
-
+        private ILista<Product> products;
 
         public ControlProduct()
         {
-            products = new List<Product>();
-            load();
+            products = new Lista<Product>();
         }
 
+        public void deleteList()
+        {
+            for (int i = 0; i < products.dimensiune(); i++)
+                products.stergere(0);
+        }
 
         public void load()
         {
-            this.products.Clear();
-            StreamReader fisier = new StreamReader(@"D:\1_PROGRAMARE\C#\ONLINE_STORE\Backend\Backend\Controller\Resources\productFile.txt");
+            this.deleteList();
+            StreamReader fisier = new StreamReader(@"D:\1_PROGRAMARE\C#\Abstractizare\online-shop-generics\online-shop-generics\Controller\Resorces\productFile.txt");
             string linie = "";
             while ((linie = fisier.ReadLine()) != null)
             {
                 string[] linieSplit = linie.Split(',');
                 if (linieSplit[0] == "phone")
-                    products.Add(new Phone(linieSplit));
-                else
-                    if (linieSplit[0] == "tv")
-                    products.Add(new TV(linieSplit));
+                    products.adaugare(new Phone(linieSplit));
 
                 //else celelalte categorii
             }
@@ -36,12 +38,11 @@ namespace online_shop_generics.Controller
         }
         public void save()
         {
-            StreamWriter fisier = new StreamWriter(@"D:\1_PROGRAMARE\C#\ONLINE_STORE\Backend\Backend\Controller\Resources\productFile.txt");
-            foreach (Product product in products)
+            StreamWriter fisier = new StreamWriter(@"D:\1_PROGRAMARE\C#\Abstractizare\online-shop-generics\online-shop-generics\Controller\Resorces\productFile.txt");
+            for (int i = 0; i < products.dimensiune(); i++)
             {
-                if (product is Phone) fisier.WriteLine((product as Phone).ToString());
-                if (product is TV) fisier.WriteLine((product as TV).ToString());
-                //celelalte categorii
+                if (products.obtine(i).Data is Phone) fisier.WriteLine((products.obtine(i).Data as Phone).ToString());
+
             }
             fisier.Close();
         }
@@ -50,18 +51,13 @@ namespace online_shop_generics.Controller
         public string afisare()
         {
             string afis = "";
-            foreach (Product product in products)
+            for (int i = 0; i < products.dimensiune(); i++)
             {
-                afis += product.afisare();
-                if (product is Phone)
+                afis += products.obtine(i).Data.afisare();
+                if (products.obtine(i).Data is Phone)
                 {
-                    Phone phone = product as Phone;
+                    Phone phone = products.obtine(i).Data as Phone;
                     afis += phone.afisare();
-                }
-                else if (product is TV)
-                {
-                    TV tv = product as TV;
-                    afis += tv.afisare();
                 }
                 //celelalte categorii
 
@@ -70,87 +66,68 @@ namespace online_shop_generics.Controller
         }
         public void adaugare(Product product)
         {
-            this.products.Add(product);
+            this.products.adaugare(product);
         }
         public void stergere(int id)
         {
-            this.products.RemoveAt(productId(id));
+            this.products.stergere(productId(id));
         }
 
 
         //Product
         public void updateName(int id, string numeNou)
         {
-            products[productId(id)].Name = numeNou;
+            products.obtine(productId(id)).Data.Name = numeNou;
         }
         public void updateDescription(int id, string descriereNou)
         {
-            products[productId(id)].Description = descriereNou;
+            products.obtine(productId(id)).Data.Description = descriereNou;
         }
         public void updateDate(int id, string dataNou)
         {
-            products[productId(id)].Date = dataNou;
+            products.obtine(productId(id)).Data.Date = dataNou;
         }
         public void updateImage(int id, string imagineNou)
         {
-            products[productId(id)].Image = imagineNou;
+            products.obtine(productId(id)).Data.Image = imagineNou;
         }
         public void updateStock(int id, int stocNou)
         {
-            products[productId(id)].Stock = stocNou;
+            products.obtine(productId(id)).Data.Stock = stocNou;
         }
         public void updatePrice(int id, int pretNou)
         {
-            products[productId(id)].Price = pretNou;
+            products.obtine(productId(id)).Data.Price = pretNou;
         }
 
         //Phone
         public void updatePhoneName(int id, string phoneNameNou)
         {
-            (products[productId(id)] as Phone).PhoneName = phoneNameNou;
+            (products.obtine(productId(id)).Data as Phone).PhoneName = phoneNameNou;
         }
         public void updatePhoneColor(int id, string phoneColorNou)
         {
-            (products[productId(id)] as Phone).PhoneColor = phoneColorNou;
+            (products.obtine(productId(id)).Data as Phone).PhoneColor = phoneColorNou;
         }
         public void updateScreenSizePhone(int id, int screenSizeNou)
         {
-            (products[productId(id)] as Phone).ScreenSize = screenSizeNou;
+            (products.obtine(productId(id)).Data as Phone).ScreenSize = screenSizeNou;
         }
         public void updateStorage(int id, int storageNou)
         {
-            (products[productId(id)] as Phone).Storage = storageNou;
+            (products.obtine(productId(id)).Data as Phone).Storage = storageNou;
         }
         public void updateBatteryCapacity(int id, int batteryCapacityNou)
         {
-            (products[productId(id)] as Phone).BatteryCapacity = batteryCapacityNou;
+            (products.obtine(productId(id)).Data as Phone).BatteryCapacity = batteryCapacityNou;
         }
-
-        //TV
-        public void updateTVName(int id, string tVName)
-        {
-            (products[productId(id)] as TV).TVName = tVName;
-        }
-        public void updateDisplayType(int id, string displayType)
-        {
-            (products[productId(id)] as TV).DisplayType = displayType;
-        }
-        public void updateEezolution(int id, string rezolution)
-        {
-            (products[productId(id)] as TV).Rezolution = rezolution;
-        }
-        public void updateScreenSizeTV(int id, int screenSize)
-        {
-            (products[productId(id)] as TV).ScreenSize = screenSize;
-        }
-
 
 
         public int productId(int id)
         {
             int k = 0;
-            foreach (Product produs in products)
-                if (produs.Id == id) return k;
+            for (int i = 0; i < products.dimensiune(); i++)
+                if (products.obtine(i).Data.Id == id) return k;
                 else k++;
             return -1;
         }
@@ -158,17 +135,17 @@ namespace online_shop_generics.Controller
 
         public Product productObjectID(int id)
         {
-            foreach (Product produs in products)
-                if (produs.Id.Equals(id) == true)
-                    return produs;
+            for (int i = 0; i < products.dimensiune(); i++)
+                if (products.obtine(i).Data.Id.Equals(id) == true)
+                    return products.obtine(i).Data;
             return null;
         }
-        public List<Product> Products
+        public ILista<Product> Products
         {
             get => this.products;
             set => this.products = value;
         }
-        public List<Product> afisareCard
+        public ILista<Product> afisareCard
         {
             get => this.products;
         }
@@ -176,8 +153,8 @@ namespace online_shop_generics.Controller
 
         public int nextId()
         {
-            if (this.products.Count > 0)
-                return this.products[this.products.Count - 1].Id + 1;
+            if (this.products.dimensiune() > 0)
+                return this.products.obtine(this.products.dimensiune() - 1).Data.Id + 1;
             else
                 return 1;
         }

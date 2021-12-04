@@ -4,7 +4,7 @@ using System.Text;
 
 namespace online_shop_generics
 {
-    public class Order
+    public class Order :IComparable<Order>
     {
         private int id, customer_id, ammount;
         private string order_address;
@@ -29,14 +29,20 @@ namespace online_shop_generics
             afis += "Adresa Cumparator: " + this.order_address + "\n\n";
             return afis;
         }
-
-
         public override bool Equals(object obj)
         {
             Order order = obj as Order;
-            return true;
+            return order.id.Equals(this.id);
         }
-
+        public int CompareTo(Order other)
+        {
+            if (this.ammount > other.ammount)
+                return -1;
+            else
+                if (this.ammount == other.ammount)
+                return 0;
+            return 1;
+        }
 
         public int Id
         {

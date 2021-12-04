@@ -25,6 +25,16 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
+      },
+      "generics-collection/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/generics-collection.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/generics-collection.dll": {}
+        }
       }
     }
   },
@@ -172,11 +182,17 @@
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "generics-collection/1.0.0": {
+      "type": "project",
+      "path": "../generics-collection/generics-collection.csproj",
+      "msbuildProject": "../generics-collection/generics-collection.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
-      "NETStandard.Library >= 2.0.3"
+      "NETStandard.Library >= 2.0.3",
+      "generics-collection >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -209,7 +225,11 @@
       },
       "frameworks": {
         "netstandard2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\1_PROGRAMARE\\C#\\Abstractizare\\online-shop-generics\\generics-collection\\generics-collection.csproj": {
+              "projectPath": "D:\\1_PROGRAMARE\\C#\\Abstractizare\\online-shop-generics\\generics-collection\\generics-collection.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

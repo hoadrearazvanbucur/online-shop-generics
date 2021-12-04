@@ -1,68 +1,76 @@
-﻿using System;
+﻿using generics_collection;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace online_shop_generics.Controller
 {
     public class ControlOrderDetail
     {
-        private List<OrderDetail> orderDetails;
+        private ILista<OrderDetail> orderDetails;
 
         public ControlOrderDetail()
         {
-            orderDetails = new List<OrderDetail>();
-            load();
+            orderDetails = new Lista<OrderDetail>();
         }
 
+        public void deleteList()
+        {
+            for (int i = 0; i < orderDetails.dimensiune(); i++)
+                orderDetails.stergere(0);
+        }
 
         public void load()
         {
-            this.orderDetails.Clear();
-            StreamReader fisier = new StreamReader(@"D:\1_PROGRAMARE\C#\ONLINE_STORE\Backend\Backend\Controller\Resources\orderDetailFile.txt");
+            this.deleteList();
+            string path = @"D:\1_PROGRAMARE\C#\Abstractizare\online-shop-generics\online-shop-generics\Controller\Resorces\orderDetailFile.txt";
+            StreamReader fisier = new StreamReader(path);
             string linie = "";
             while ((linie = fisier.ReadLine()) != null)
             {
                 string[] linieSplit = linie.Split(',');
-                orderDetails.Add(new OrderDetail(linieSplit));
+                orderDetails.adaugare(new OrderDetail(linieSplit));
             }
             fisier.Close();
         }
+
+
         public void save()
         {
-            StreamWriter fisier = new StreamWriter(@"D:\1_PROGRAMARE\C#\ONLINE_STORE\Backend\Backend\Controller\Resources\orderDetailFile.txt");
-            foreach (OrderDetail orderDetail in orderDetails)
-                fisier.WriteLine(orderDetail.ToString());
+            string path = @"D:\1_PROGRAMARE\C#\Abstractizare\online-shop-generics\online-shop-generics\Controller\Resorces\orderDetailFile.txt";
+            StreamWriter fisier = new StreamWriter(path);
+            for (int i = 0; i < orderDetails.dimensiune(); i++)
+                fisier.WriteLine(orderDetails.obtine(i).Data.ToString());
             fisier.Close();
         }
 
 
         public string afisare()
         {
-            string afis = "";
-            foreach (OrderDetail orderDetail in orderDetails)
-                afis += orderDetail.afisare();
-            return afis;
+            return orderDetails.afisare();
         }
+
         public void adaugare(OrderDetail orderDetail)
         {
-            orderDetails.Add(orderDetail);
+            this.orderDetails.adaugare(orderDetail);
         }
         public void stergere(int id)
         {
-            this.orderDetails.RemoveAt(orderDetailId(id));
+            this.orderDetails.stergere(orderDetailId(id));
         }
 
 
         public void updateQuantity(int id, int quantityNou)
         {
-            orderDetails[orderDetailId(id)].Quantity = quantityNou;
+            orderDetails.obtine(orderDetailId(id)).Data.Quantity = quantityNou;
         }
         public void updatePrice(int id, double priceNou)
         {
-            orderDetails[orderDetailId(id)].Price = priceNou;
+            orderDetails.obtine(orderDetailId(id)).Data.Price = priceNou;
         }
 
-        public List<OrderDetail> OrderDetail
+        public ILista<OrderDetail> OrderDetail
         {
             get => this.orderDetails;
             set => this.orderDetails = value;
@@ -70,29 +78,27 @@ namespace online_shop_generics.Controller
         public int orderDetailId(int id)
         {
             int k = 0;
-            foreach (OrderDetail orderDetail in orderDetails)
-                if (orderDetail.Id == id) return k;
+            for (int i = 0; i < orderDetails.dimensiune(); i++)
+                if (orderDetails.obtine(i).Data.Id == id) return k;
                 else k++;
             return -1;
         }
         public OrderDetail orderDetailObjectId(int id)
         {
-            foreach (OrderDetail orderDetail in orderDetails)
-                if (orderDetail.Id.Equals(id) == true)
-                    return orderDetail;
+            for (int i = 0; i < orderDetails.dimensiune(); i++)
+                if (orderDetails.obtine(i).Data.Id.Equals(id) == true)
+                    return orderDetails.obtine(i).Data;
             return null;
         }
 
 
-
-
-        public List<OrderDetail> orderListId(int orderId)
+        public ILista<OrderDetail> orderListId(int orderId)
         {
-            List<OrderDetail> list = new List<OrderDetail>();
-            foreach (OrderDetail orderDetails in orderDetails)
+            ILista<OrderDetail> list = new Lista<OrderDetail>();
+            for (int i = 0; i < orderDetails.dimensiune(); i++)
             {
-                if (orderDetails.Order_id.Equals(orderId) == true)
-                    list.Add(orderDetails);
+                if (orderDetails.obtine(i).Data.Order_id.Equals(orderId) == true)
+                    list.adaugare(orderDetails.obtine(i).Data);
             }
             return list;
         }
@@ -100,8 +106,8 @@ namespace online_shop_generics.Controller
 
         public int nextId()
         {
-            if (this.orderDetails.Count > 0)
-                return this.orderDetails[this.orderDetails.Count - 1].Id + 1;
+            if (this.orderDetails.dimensiune() > 0)
+                return this.orderDetails.obtine(this.orderDetails.dimensiune() - 1).Data.Id + 1;
             else
                 return 1;
         }

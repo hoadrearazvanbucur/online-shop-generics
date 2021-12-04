@@ -5,4 +5,8 @@
     <RootNamespace>online_shop_generics</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\generics-collection\generics-collection.csproj" />
+  </ItemGroup>
+
 </Project>

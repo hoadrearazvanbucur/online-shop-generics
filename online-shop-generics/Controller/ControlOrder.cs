@@ -1,102 +1,108 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
+using generics_collection;
 
 namespace online_shop_generics.Controller
 {
     public class ControlOrder
     {
-        private List<Order> orders;
+        private ILista<Order> orders;
 
         public ControlOrder()
         {
-            orders = new List<Order>();
-            load();
+            orders = new Lista<Order>();
         }
 
+        public void deleteList()
+        {
+            for (int i = 0; i < orders.dimensiune(); i++)
+                orders.stergere(0);
+        }
 
         public void load()
         {
-            this.orders.Clear();
-            string path = @"D:\1_PROGRAMARE\C#\ONLINE_STORE\Backend\Backend\Controller\Resources\orderFile.txt";
+            this.deleteList();
+            string path = @"D:\1_PROGRAMARE\C#\Abstractizare\online-shop-generics\online-shop-generics\Controller\Resorces\orderFile.txt";
             StreamReader fisier = new StreamReader(path);
             string linie = "";
             while ((linie = fisier.ReadLine()) != null)
             {
                 string[] linieSplit = linie.Split(',');
-                orders.Add(new Order(linieSplit));
+                orders.adaugare(new Order(linieSplit));
             }
             fisier.Close();
         }
+
+
         public void save()
         {
-            string path = @"D:\1_PROGRAMARE\C#\ONLINE_STORE\Backend\Backend\Controller\Resources\orderFile.txt";
+            string path = @"D:\1_PROGRAMARE\C#\Abstractizare\online-shop-generics\online-shop-generics\Controller\Resorces\orderFile.txt";
             StreamWriter fisier = new StreamWriter(path);
-            foreach (Order order in orders)
-                fisier.WriteLine(order.ToString());
+            for (int i = 0; i < orders.dimensiune(); i++)
+                fisier.WriteLine(orders.obtine(i).Data.ToString());
             fisier.Close();
         }
 
 
         public string afisare()
         {
-            string afis = "";
-            foreach (Order order in orders)
-                afis += order.afisare();
-            return afis;
+            return orders.afisare();
         }
+
         public void adaugare(Order order)
         {
-            orders.Add(order);
+            this.orders.adaugare(order);
         }
         public void stergere(int id)
         {
-            this.orders.RemoveAt(orderId(id));
+            this.orders.stergere(orderId(id));
         }
 
 
         public void updateOrderAdress(int id, string orderAdressNou)
         {
-            orders[orderId(id)].Order_Address = orderAdressNou;
+            orders.obtine(orderId(id)).Data.Order_Address = orderAdressNou;
         }
         public void updateAmmount(int id, int ammountNou)
         {
-            orders[orderId(id)].Ammount = ammountNou;
+            orders.obtine(orderId(id)).Data.Ammount = ammountNou;
         }
 
 
         public int orderId(int id)
         {
             int k = 0;
-            foreach (Order order in orders)
-                if (order.Id == id) return k;
+            for (int i = 0; i < orders.dimensiune(); i++)
+                if (orders.obtine(i).Data.Id == id) return k;
                 else k++;
             return -1;
         }
         public Order orderObjectId(int id)
         {
-            foreach (Order order in orders)
-                if (order.Id.Equals(id) == true)
-                    return order;
+            for (int i = 0; i < orders.dimensiune(); i++)
+                if (orders.obtine(i).Data.Id.Equals(id) == true)
+                    return orders.obtine(i).Data;
             return null;
         }
-        public List<Order> Order
+        public ILista<Order> Order
         {
             get => this.orders;
             set => this.orders = value;
         }
         public Order orderAcc(int customer_id)
         {
-            foreach (Order o in this.orders)
-                if (o.Custormer_id.Equals(customer_id) == true)
-                    return o;
+            for (int i = 0; i < orders.dimensiune(); i++)
+                if (orders.obtine(i).Data.Custormer_id.Equals(customer_id) == true)
+                    return orders.obtine(i).Data;
             return null;
         }
 
         public int nextId()
         {
-            if (this.orders.Count > 0)
-                return this.orders[this.orders.Count - 1].Id + 1;
+            if (this.orders.dimensiune() > 0)
+                return this.orders.obtine(this.orders.dimensiune() - 1).Data.Id + 1;
             else
                 return 1;
         }

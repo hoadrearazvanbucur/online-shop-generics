@@ -4,7 +4,7 @@ using System.Text;
 
 namespace generics_collection
 {
-    public class Lista
+    public class Lista<T> : ILista<T> where T : IComparable<T>
     {
         private Node<T> head = null;
 
@@ -156,39 +156,5 @@ namespace generics_collection
             return text;
         }
 
-        public void sort()
-        {
-            int ok;
-            do
-            {
-                ok = 0;
-                for (int i = 0; i < this.dimensiune() - 1; i++)
-                    if (this.obtine(i).Data.CompareTo(this.obtine(i + 1).Data) == -1)
-                    {
-                        T aux = this.obtine(i).Data;
-                        this.obtine(i).Data = this.obtine(i + 1).Data;
-                        this.obtine(i + 1).Data = aux;
-                        ok = 1;
-                    }
-            } while (ok == 1);
-        }
-        public void sort(Comparer<T> comparator)
-        {
-            int ok;
-            do
-            {
-                ok = 0;
-                for (int i = 0; i < this.dimensiune() - 1; i++)
-                    if (comparator.Compare(this.obtine(i).Data, this.obtine(i + 1).Data) == 0)
-                    {
-                        T aux = this.obtine(i).Data;
-                        this.obtine(i).Data = this.obtine(i + 1).Data;
-                        this.obtine(i + 1).Data = aux;
-                        ok = 1;
-                    }
-
-            } while (ok == 1);
-
-        }
     }
 }

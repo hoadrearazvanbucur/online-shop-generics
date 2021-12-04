@@ -4,7 +4,7 @@ using System.Text;
 
 namespace online_shop_generics
 {
-    public class OrderDetail
+    public class OrderDetail : IComparable<OrderDetail>
     {
         private int id, order_id, product_id, quantity;
         private double price;
@@ -31,12 +31,19 @@ namespace online_shop_generics
             afis += "Pret: " + this.price + "\n\n";
             return afis;
         }
-
-
         public bool Equals(object obj)
         {
             OrderDetail orderDetail = obj as OrderDetail;
-            return true;
+            return orderDetail.id.Equals(this.id);
+        }
+        public int CompareTo(OrderDetail other)
+        {
+            if (this.quantity > other.quantity)
+                return -1;
+            else
+                if (this.quantity == other.quantity)
+                return 0;
+            return 1;
         }
 
 

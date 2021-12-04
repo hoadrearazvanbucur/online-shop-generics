@@ -4,7 +4,7 @@ using System.Text;
 
 namespace generics_collection
 {
-    public interface IList
+    public interface ILista<T>
     {
         void adaugare(T data);
         void stergere(int index);
@@ -15,8 +15,6 @@ namespace generics_collection
         int dimensiune();
         Node<T> obtine(int index);
         void seteaza(T data, int index);
-        void sort();
         string afisare();
-        void sort(Comparer<T> comparator);
     }
 }

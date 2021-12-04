@@ -1,0 +1,9 @@
+D:\1_PROGRAMARE\C#\Abstractizare\online-shop-generics\generics-collection\bin\Debug\netstandard2.0\generics-collection.deps.json
+D:\1_PROGRAMARE\C#\Abstractizare\online-shop-generics\generics-collection\bin\Debug\netstandard2.0\generics-collection.dll
+D:\1_PROGRAMARE\C#\Abstractizare\online-shop-generics\generics-collection\bin\Debug\netstandard2.0\generics-collection.pdb
+D:\1_PROGRAMARE\C#\Abstractizare\online-shop-generics\generics-collection\obj\Debug\netstandard2.0\generics-collection.csprojAssemblyReference.cache
+D:\1_PROGRAMARE\C#\Abstractizare\online-shop-generics\generics-collection\obj\Debug\netstandard2.0\generics-collection.AssemblyInfoInputs.cache
+D:\1_PROGRAMARE\C#\Abstractizare\online-shop-generics\generics-collection\obj\Debug\netstandard2.0\generics-collection.AssemblyInfo.cs
+D:\1_PROGRAMARE\C#\Abstractizare\online-shop-generics\generics-collection\obj\Debug\netstandard2.0\generics-collection.csproj.CoreCompileInputs.cache
+D:\1_PROGRAMARE\C#\Abstractizare\online-shop-generics\generics-collection\obj\Debug\netstandard2.0\generics-collection.dll
+D:\1_PROGRAMARE\C#\Abstractizare\online-shop-generics\generics-collection\obj\Debug\netstandard2.0\generics-collection.pdb
