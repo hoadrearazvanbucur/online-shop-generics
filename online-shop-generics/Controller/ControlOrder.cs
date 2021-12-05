@@ -99,6 +99,18 @@ namespace online_shop_generics.Controller
             return null;
         }
 
+        public Order orderMax(int customer_id)
+        {
+            int maxim = -1;
+            for (int i = 0; i < orders.dimensiune(); i++)
+                if (orders.obtine(i).Data.Custormer_id.Equals(customer_id) == true)
+                    if (maxim < this.Order.obtine(i).Data.Id)
+                        maxim = this.Order.obtine(i).Data.Id;
+            return this.orderObjectId(maxim);
+        }
+
+
+
         public int nextId()
         {
             if (this.orders.dimensiune() > 0)

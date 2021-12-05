@@ -20,31 +20,18 @@ namespace tests_for_online_shop
         [Fact]
         public void saveAdaugareStergere()
         {
-            //Preconditie
+           
             ControlOrderDetail control = new ControlOrderDetail();
             string[] o1 = new string[] { "11", "11", "11", "11", "11" };
             OrderDetail order1 = new OrderDetail(o1);
-
-            //PostConditie
             control.adaugare(order1);
-
-            //Actiune
             control.save();
             control.load();
             outputHelper.WriteLine(control.afisare());
-
-            //Verificare
             Assert.True(control.orderDetailId(11) >= 0);
-
-
-            //PostConditie
             control.stergere(11);
-
-            //Actiune
             control.save();
             control.load();
-
-            //Verificare
             Assert.True(control.orderDetailId(11) < 0);
         }
 

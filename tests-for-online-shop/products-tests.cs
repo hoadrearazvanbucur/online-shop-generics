@@ -22,29 +22,16 @@ namespace tests_for_online_shop
         [Fact]
         public void saveAdaugareStergere()
         {
-            //Preconditie
             ControlProduct control = new ControlProduct();
             string[] p1 = new string[] { "phone", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11", "11" };
             Phone product1 = new Phone(p1);
-            //PostConditie
             control.adaugare(product1);
-
-            //Actiune
             control.save();
             control.load();
-
-            //Verificare
             Assert.True(control.productId(11) >= 0);
-
-
-            //PostConditie
             control.stergere(11);
-
-            //Actiune
             control.save();
             control.load();
-
-            //Verificare
             Assert.True(control.productId(11) < 0);
         }
 

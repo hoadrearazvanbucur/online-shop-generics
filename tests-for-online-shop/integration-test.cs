@@ -33,12 +33,8 @@ namespace tests_for_online_shop
         public void home()
         {
 
-            //Preconditie
-            //Customer
             Customer customer1 = new Customer(new string[] { "email", "password", "fullname", "1" });
 
-            //5 produse 
-            //{"phone","name1","descriere1","data1","imagine1","1","11","11.1","phoneName1","phoneColor1","size1","storage1","battery1"});
             Phone phone1 = new Phone(new string[] { "phone", "Samsung", "foarte bun", "2041", "imagine1", "1", "11", "11.1", "S10", "trasparent", "22", "1", "2" });
             Phone phone2 = new Phone(new string[] { "phone", "Apple", "slab", "2000", "imagine2", "2", "22", "22.2", "12 Pro", "negru", "12", "23", "11" });
             Phone phone3 = new Phone(new string[] { "phone", "Motorola", "rezisten", "2013", "imagine3", "3", "33", "33.3", "S32", "mov", "11", "23", "44" });
@@ -56,12 +52,6 @@ namespace tests_for_online_shop
 
             Order order1 = new Order(new string[] { "1", $"{customer1.Id}", "0", "Rasinari" });
 
-
-
-            //Actiune 
-
-            //cumparam 2 samsung si un motorala
-
             OrderDetail orderDetail1 = new OrderDetail(new string[] { "1", $"{order1.Id}", $"{phone1.Id}", "2", $"{phone1.Price * 2}" });
             OrderDetail orderDetail2 = new OrderDetail(new string[] { "2", $"{order1.Id}", $"{phone3.Id}", "1", $"{phone3.Price}" });
 
@@ -75,7 +65,6 @@ namespace tests_for_online_shop
 
             ILista<OrderDetail> orders = controlOrderDetail.orderListId(order1.Id);
 
-            //testam daca produsele sunt in cos
 
             for (int i = 0; i < orders.dimensiune(); i++)
             {
